@@ -1,6 +1,7 @@
-import axios from "axios";
 import React, { Component } from "react";
+import axios from "axios";
 import "./App.css";
+import Users from "./Users";
 
 class App extends Component {
   constructor(props) {
@@ -16,7 +17,6 @@ class App extends Component {
       .get("https://jsonplaceholder.typicode.com/posts")
       .then((response) => {
         this.setState({ users: response.data });
-        console.log(response.data);
       })
       .catch((err) => {
         console.log("err", err);
@@ -26,21 +26,14 @@ class App extends Component {
     this.initialize();
   }
   render() {
-    console.log("state", this.state.users);
-    let elements = this.state.users.map((el) => {
-      return (
-        <tr>
-          <td>{el.id}</td>
-          <td>{el.userId}</td>
-          <td>{el.title}</td>
-        </tr>
-      );
-    });
+    let elements = this.state.users.map((el) => (
+      <Users id={el.id} userId={el.userId} title={el.title} />
+    ));
     return (
       <div>
         <table>
           <tr>
-            <th>ID</th>
+            <th>Id</th>
             <th>Title</th>
             <th>body</th>
           </tr>
